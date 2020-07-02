@@ -7,6 +7,7 @@ FactoryBot.define do
     role { :default }
   end
 
+
   factory :admin, parent: :user do
     role { :admin }
   end

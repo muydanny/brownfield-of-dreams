@@ -1,4 +1,4 @@
-class Repo 
+class Repo
 
   attr_reader :name,
               :url
@@ -7,5 +7,4 @@ class Repo
     @name = repo_data[:name]
     @url = repo_data[:html_url]
   end
-  
-end 
+end

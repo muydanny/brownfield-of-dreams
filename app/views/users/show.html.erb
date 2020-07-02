@@ -11,14 +11,25 @@
     <h1>Bookmarked Segments</h1>
   </section>
   <section class ='repo'>
+    <% if @user.token == nil %>
+      <p>No github stuff</p>
+    <% else %>
     <h1><%= @repos.count %> Recent Repos</h1>
-    <% @repos.each do |repo| %>
-      <ul>
-        <li><a href= "<%= repo.url %>"><%= repo.name %></li></a>  
-      </ul>
+      <% @repos.each do |repo| %>
+        <ul>
+          <li><a href= "<%= repo.url %>"><%= repo.name %></li></a>
+        </ul>
+      <% end %>
+      <section class="github_followers">
+        <h1><%= @followers.length %> Followers</h1>
+        <% @followers.each do |follower| %>
+        <section id="follower">
+          <ul>
+            <li><a href= "<%= follower.url %>"> <%= follower.login %></li>
+            </ul>
+          </section>
+          <% end  %>
+        </section>
     <% end %>
   </section>
 </section>
-
-
-
