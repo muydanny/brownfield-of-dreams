@@ -30,6 +30,16 @@
           </section>
           <% end  %>
         </section>
+        <section class="github_following">
+        <h1><%= @following.length %> Following</h1>
+        <% @following.each do |follow| %>
+        <section id="follow">
+          <ul>
+            <li><a href= "<%= follow.url %>"> <%= follow.login %></li>
+            </ul>
+          </section>
+          <% end  %>
+        </section>
     <% end %>
   </section>
 </section>
