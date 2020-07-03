@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'welcome#index', as: :tag
   get '/register', to: 'users#new'
 
+  
+
   namespace :admin do
     get "/dashboard", to: "dashboard#show"
     resources :tutorials, only: [:create, :edit, :update, :destroy, :new] do
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
 
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
