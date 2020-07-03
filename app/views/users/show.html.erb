@@ -14,32 +14,35 @@
     <% if @user.token == nil %>
       <p>No github stuff</p>
     <% else %>
-    <h1><%= @repos.count %> Recent Repos</h1>
+      <h1><%= @repos.count %> Recent Repos</h1>
       <% @repos.each do |repo| %>
         <ul>
           <li><a href= "<%= repo.url %>"><%= repo.name %></li></a>
         </ul>
       <% end %>
-      <section class="github_followers">
-        <h1><%= @followers.length %> Followers</h1>
-        <% @followers.each do |follower| %>
+    <% end %>
+
+    <section class="github_followers">
+      <h1><%= @followers.length %> Followers</h1>
+      <% @followers.each do |follower| %>
         <section id="follower">
           <ul>
-            <li><a href= "<%= follower.url %>"> <%= follower.login %></li>
-            </ul>
-          </section>
-          <% end  %>
+            <li><a href= "<%= follower.url %>"> <%= follower.login %></a></li>
+          </ul>
         </section>
-        <section class="github_following">
-        <h1><%= @following.length %> Following</h1>
-        <% @following.each do |follow| %>
+      <% end  %>
+    </section>
+    
+
+    <section class="github_following">
+      <h1><%= @following.length %> Following</h1>
+      <% @following.each do |follow| %>
         <section id="follow">
           <ul>
-            <li><a href= "<%= follow.url %>"> <%= follow.login %></li>
-            </ul>
-          </section>
-          <% end  %>
+            <li><a href= "<%= follow.url %>"> <%= follow.login %></a></li>
+          </ul>
         </section>
-    <% end %>
+      <% end %>
+    </section>
   </section>
 </section>

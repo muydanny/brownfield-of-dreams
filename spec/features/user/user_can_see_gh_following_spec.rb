@@ -17,16 +17,8 @@ describe 'Github followers' do
     within ".github_following" do
       expect(page).to have_content("Following")
     end
-    save_and_open_page
+    
   end
 end
 
 
-
-# As a logged in user
-# When I visit /dashboard
-# Then I should see a section for "Github"
-# And under that section I should see another section 
-# titled "Following"
-# And I should see list of users I follow with their 
-# handles linking to their Github profile

@@ -4,6 +4,8 @@ class UsersController < ApplicationController
     
     @user = User.find_by(params[:user_id])
     if @user.token == nil
+      @followers = []
+      @following = []
       @repos = []
     else
       conn = Faraday.new("https://api.github.com") do |req|
@@ -12,15 +14,15 @@ class UsersController < ApplicationController
 
       response_following = conn.get("/user/following")
       parsed_3 = JSON.parse(response_following.body, symbolize_names: true)
-        @following = parsed_3.map do |following_data|
-          Following.new(following_data)
-        end.first(5)
+      @following = parsed_3.map do |following_data|
+        Following.new(following_data)
+      end.first(5)
 
       response_followers = conn.get("/user/followers")
       parsed_2 = JSON.parse(response_followers.body, symbolize_names: true)
-        @followers = parsed_2.map do |follower_data|
-          Follower.new(follower_data)
-        end.first(5)
+      @followers = parsed_2.map do |follower_data|
+        Follower.new(follower_data)
+      end.first(5)
         
       repo_list = conn.get("/user/repos")
       parsed = JSON.parse(repo_list.body, symbolize_names: true)
