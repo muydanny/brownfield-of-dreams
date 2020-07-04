@@ -26,6 +26,26 @@ feature "An admin can add a tutorial by importing from Youtube" do
     expect(current_path).to eq("/tutorials/#{id}")
 
   end
+
+  it "Can import a playlist with more than 50 videos" do
+    admin = create(:admin)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit "/admin/tutorials/new"
+    
+    fill_in 'Title', with: 'Tutorial'
+    fill_in 'Description', with: 'New Tutorial'
+    fill_in 'Thumbnail', with: 'https://www.youtube.com/watch?v=4ABesTeDKmQ&list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4'
+
+    click_link "Import Youtube Playlist"
+    fill_in "tutorial_playlist_id",   with: "PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4" 
+    click_on 'Save' 
+
+    click_link('View it here.')
+    tutorial = Tutorial.last
+
+    expect(tutorial.videos.count).to be > 50
+  end
 end
 
 # As an admin
