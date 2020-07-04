@@ -6,7 +6,9 @@ class Admin::TutorialsController < Admin::BaseController
   def create 
     tutorial = Tutorial.create(new_tutorial_params)
     if tutorial.save
-      YoutubeService.new.create_videos(tutorial)
+      create_videos(tutorial)
+      # YoutubeService.new.playlist_video_params(tutorial)
+      # YoutubeService.new.create_videos(tutorial)
       redirect_to admin_dashboard_path
       flash[:notice] = "Successfully created tutorial. #{view_context.link_to("View it here.", tutorial_path(tutorial.id))}"
     end
@@ -29,6 +31,12 @@ class Admin::TutorialsController < Admin::BaseController
   end
 
   private
+
+  def create_videos(tutorial)
+    YoutubeService.new.playlist_video_params(tutorial).map do |video_param|
+      tutorial.videos.create(video_param)
+    end
+  end
 
   def tutorial_params
     params.require(:tutorial).permit(:tag_list)

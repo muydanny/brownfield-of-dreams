@@ -20,7 +20,7 @@ feature "An admin can add a tutorial by importing from Youtube" do
     
     expect(current_path).to eq('/admin/dashboard')
     expect(page).to have_content('Successfully created tutorial. View it here.')
-    save_and_open_page
+    
     click_link('View it here.')
     id = Tutorial.last.id
     expect(current_path).to eq("/tutorials/#{id}")
