@@ -1,4 +1,10 @@
 class YoutubeService
+
+  def create_videos(tutorial)
+    url = "/youtube/v3/playlistItems?playlistId=#{tutorial.playlist_id}"
+    res = get_json(url, {})  
+  end
+
   def video_info(id)
     params = { part: 'snippet,contentDetails,statistics', id: id }
 

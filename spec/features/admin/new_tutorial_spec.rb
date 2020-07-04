@@ -14,12 +14,13 @@ feature "An admin can add a tutorial by importing from Youtube" do
     fill_in 'Description', with: 'New Tutorial'
     fill_in 'Thumbnail', with: 'https://www.youtube.com/watch?v=4ABesTeDKmQ&list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4'
     
-    fill_in "tutorial_playlist_id",   with: "4ABesTeDKmQ&list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4"  
     click_link "Import Youtube Playlist"
-    save_and_open_page
+    fill_in "tutorial_playlist_id",   with: "PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4" 
+    click_on 'Save' 
+    
     expect(current_path).to eq('/admin/dashboard')
     expect(page).to have_content('Successfully created tutorial. View it here.')
-    
+    save_and_open_page
     click_link('View it here.')
     id = Tutorial.last.id
     expect(current_path).to eq("/tutorials/#{id}")
