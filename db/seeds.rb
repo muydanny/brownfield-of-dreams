@@ -117,3 +117,4 @@ m3_tutorial.videos.create!({
 
 User.create!(email: 'admin@example.com', first_name: 'Bossy', last_name: 'McBosserton', password:  "password", role: :admin)
 User.create!(email: 'regular_user@example.com', first_name: 'User', last_name: 'Regular', password:  "password", token: ENV["GH_API_KEY"])
+User.create!(email: 'user@example.com', first_name: 'User', last_name: 'Regular', password:  "password")
