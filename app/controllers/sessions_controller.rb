@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
   end
 
   def login
-    client_id     =
-    client_secret = 
+    client_id     = "36d16b999bf13e5ac1a0"
+    client_secret = "5f632d26221ae9854c7f60f84cd253bdc8f5480a"
     code          = params[:code]
     response      = Faraday.post("https://github.com/login/oauth/access_token?client_id=#{client_id}&client_secret=#{client_secret}&code=#{code}")
     pairs = response.body.split("&")
@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
     # user          = User.find_or_create_by(id: auth["id"])
     user          = User.find(session[:user_id])
     user.token    = "token #{token}"
-    # user.password = "password"
     user.save!
     session[:user_id] = user.id
     redirect_to dashboard_path

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       @repos = []
     else
       conn = Faraday.new('https://api.github.com') do |req|
-        req.headers['authorization'] = @user.token
+        req.headers['Authorization'] = @user.token
       end
 
       response_following = conn.get('/user/following')
