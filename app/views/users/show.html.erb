@@ -2,6 +2,7 @@
   <h1> <%= current_user.first_name %>'s Dashboard </h1>
 
   <%= button_to 'Log Out', logout_path, method: 'delete', class: "btn btn-primary mb1 bg-teal" %>
+  <%= link_to 'Connect to Github', "https://github.com/login/oauth/authorize?client_id=36d16b999bf13e5ac1a0&scope=repo,user", method: 'delete', class: "btn btn-primary mb1 bg-teal" %>
   <h3>Account Details</h3>
   <ul>
     <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
@@ -32,7 +33,7 @@
         </section>
       <% end  %>
     </section>
-    
+
 
     <section class="github_following">
       <h1><%= @following.length %> Following</h1>
