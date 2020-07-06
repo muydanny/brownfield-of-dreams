@@ -1,30 +1,28 @@
 class UsersController < ApplicationController
-
   def show
-    
     @user = User.find_by(params[:user_id])
-    if @user.token == nil
+    if @user.token.nil?
       @followers = []
       @following = []
       @repos = []
     else
-      conn = Faraday.new("https://api.github.com") do |req|
-        req.headers["authorization"] = @user.token
+      conn = Faraday.new('https://api.github.com') do |req|
+        req.headers['authorization'] = @user.token
       end
 
-      response_following = conn.get("/user/following")
+      response_following = conn.get('/user/following')
       parsed_3 = JSON.parse(response_following.body, symbolize_names: true)
       @following = parsed_3.map do |following_data|
         Following.new(following_data)
       end.first(5)
 
-      response_followers = conn.get("/user/followers")
+      response_followers = conn.get('/user/followers')
       parsed_2 = JSON.parse(response_followers.body, symbolize_names: true)
       @followers = parsed_2.map do |follower_data|
         Follower.new(follower_data)
       end.first(5)
-        
-      repo_list = conn.get("/user/repos")
+
+      repo_list = conn.get('/user/repos')
       parsed = JSON.parse(repo_list.body, symbolize_names: true)
       @repos = parsed.map do |repo_data|
         Repo.new(repo_data)

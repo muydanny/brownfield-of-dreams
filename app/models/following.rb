@@ -1,5 +1,4 @@
 class Following
-
   attr_reader :login,
               :url
 
@@ -7,5 +6,4 @@ class Following
     @login = following_data[:login]
     @url = following_data[:html_url]
   end
-
 end

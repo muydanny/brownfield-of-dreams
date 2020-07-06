@@ -5,5 +5,4 @@ class Follower
     @login = follower_data[:login]
     @url = follower_data[:html_url]
   end
-
 end
