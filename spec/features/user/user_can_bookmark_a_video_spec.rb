@@ -22,7 +22,6 @@ describe 'A registered user' do
     user = create(:user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
     visit tutorial_path(tutorial)
 
     click_on 'Bookmark'
@@ -34,12 +33,16 @@ describe 'A registered user' do
   it "bookmarked videos show up on user dashboard" do
     tutorial= create(:tutorial, title: "How to Tie Your Shoes")
     video = create(:video, title: "The Bunny Ears Technique", tutorial: tutorial)
-    user = create(:user)
-
-
+    user = User.create!(email: 'user@example.com', first_name: 'User', last_name: 'Regular', password:  "password")
+    visit "/"
+    click_on "Sign In"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Log In"
     visit tutorial_path(tutorial)
     click_on 'Bookmark'
     expect(current_path).to eq("/dashboard")
-  
+
+    expect(page).to have_content(tutorial.title)
   end
 end

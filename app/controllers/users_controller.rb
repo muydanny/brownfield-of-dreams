@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     # @user = User.find_by(params[:user_id])
+    # @user = User.find_by(@current_user)
     @user = User.find_by(id: session[:user_id])
     if @user.token.nil?
       @followers = []
