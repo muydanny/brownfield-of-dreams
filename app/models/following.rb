@@ -6,4 +6,10 @@ class Following
     @login = following_data[:login]
     @url = following_data[:html_url]
   end
+
+  def user_exists?
+    User.find_by(login: @login)
+  end
+
 end
+

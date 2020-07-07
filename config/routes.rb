@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
 
 
+  resources :friendships, only: [:create]
+
 
   namespace :admin do
     get "/dashboard", to: "dashboard#show"
