@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'welcome#index', as: :tag
   get '/register', to: 'users#new'
 
-  post "/friendship/create", to: "friendship#create"
+  resources :friendships, only: [:create]
 
   # 1. create a friends controller
   # 2. have a create action 

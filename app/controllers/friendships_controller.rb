@@ -1,7 +1,7 @@
 class FriendshipsController < ApplicationController
 
   def create
-    @friendship = current_user.friendships.create(:friend_id: params[:friend_id])
+    @friendship = current_user.friendships.create(friend_id: params[:friend_id])
     if @friendship.save
       flash[:notice] = 'Friend added!'
       redirect_to '/dashboard'
@@ -11,8 +11,9 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def destroy
+  # def destroy
     
-  end
+
+  # end
 
 end

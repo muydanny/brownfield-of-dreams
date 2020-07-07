@@ -27,8 +27,8 @@
       <% @followers.each do |follower| %>
         <section id="follower">
           <ul>
-          <% if follower.exists_in_the_system? %>
-            <li><a href= "<%= follower.url %>"> <%= follower.login %></a> <%= link_to 'Add as Friend', login_path %></li>
+          <% if follower.user_exists? %>
+            <li><a href= "<%= follower.url %>"> <%= follower.login %></a> <%= link_to 'Add as Friend', friendships_path(friend_id: follower.user_exists?.id), method: :post %></li>
           <% else %>
             <li><a href= "<%= follower.url %>"> <%= follower.login %></a></li>
           <% end %>
@@ -44,8 +44,8 @@
       <% @following.each do |follow| %>
         <section id="follow">
           <ul>
-          <% if follow.exists_in_the_system? %>
-            <li><a href= "<%= follow.url %>"> <%= follow.login %></a> <%= link_to 'Add as Friend', login_path %></li>
+          <% if follow.user_exists? %>
+            <li><a href= "<%= follow.url %>"> <%= follow.login %></a> <%= link_to 'Add as Friend', friendships_path(friend_id: follow.user_exists?.id), method: :post %></li>
           <% else %>
             <li><a href= "<%= follow.url %>"> <%= follow.login %></a></li>
           <% end %>
