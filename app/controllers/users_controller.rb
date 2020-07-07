@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     # @user = User.find_by(params[:user_id])
+    # @user = User.find_by(@current_user)
     @user = User.find_by(id: session[:user_id])
     if @user.token.nil?
       @followers = []
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
       @repos = []
     else
       conn = Faraday.new('https://api.github.com') do |req|
-        req.headers['authorization'] = @user.token
+        req.headers['Authorization'] = @user.token
       end
 
       response_following = conn.get('/user/following')

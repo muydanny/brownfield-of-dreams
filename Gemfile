@@ -25,9 +25,10 @@ gem 'active_model_serializers'
 gem 'omniauth-google-oauth2'
 gem 'will_paginate'
 gem 'acts-as-taggable-on', '~> 6.0'
-# gem 'omniauth-census', git: "https://github.com/turingschool-projects/omniauth-census"
-gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
-# gem 'devise'
+gem 'omniauth-census', git: "https://github.com/turingschool-projects/omniauth-census"
+# gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+gem 'omniauth-github'
+
 
 
 group :development, :test do
