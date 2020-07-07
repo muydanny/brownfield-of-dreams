@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_032524) do
+ActiveRecord::Schema.define(version: 2020_07_06_235653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,24 @@ ActiveRecord::Schema.define(version: 2020_07_01_032524) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_followers", force: :cascade do |t|
+    t.bigint "users_id"
+    t.integer "following_id"
+    t.integer "followee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_user_followers_on_users_id"
+  end
+
+  create_table "user_followings", force: :cascade do |t|
+    t.bigint "users_id"
+    t.integer "following_id"
+    t.integer "followee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_user_followings_on_users_id"
+  end
+
   create_table "user_videos", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "video_id"
@@ -68,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_032524) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
+    t.string "login"
     t.index ["email"], name: "index_users_on_email"
   end
 
@@ -81,6 +100,8 @@ ActiveRecord::Schema.define(version: 2020_07_01_032524) do
     t.index ["tutorial_id"], name: "index_videos_on_tutorial_id"
   end
 
+  add_foreign_key "user_followers", "users", column: "users_id"
+  add_foreign_key "user_followings", "users", column: "users_id"
   add_foreign_key "user_videos", "users"
   add_foreign_key "user_videos", "videos"
 end

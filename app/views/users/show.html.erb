@@ -39,7 +39,11 @@
       <% @following.each do |follow| %>
         <section id="follow">
           <ul>
+          <% if follow.exists_in_the_system? %>
+            <li><a href= "<%= follow.url %>"> <%= follow.login %></a> <%= link_to 'Add as Friend', login_path %></li>
+          <% else %>
             <li><a href= "<%= follow.url %>"> <%= follow.login %></a></li>
+          <% end %>
           </ul>
         </section>
       <% end %>

@@ -4,9 +4,9 @@ FactoryBot.define do
     first_name { Faker::Creature::Dog.name }
     last_name { Faker::Artist.name }
     password { Faker::Color.color_name }
+    login {Faker::Artist.name}
     role { :default }
   end
-
 
   factory :admin, parent: :user do
     role { :admin }
