@@ -3,6 +3,31 @@ class SessionsController < ApplicationController
     @user = User.new
   end
 
+  def login
+    client_id     =
+    client_secret = 
+    code          = params[:code]
+    response      = Faraday.post("https://github.com/login/oauth/access_token?client_id=#{client_id}&client_secret=#{client_secret}&code=#{code}")
+    pairs = response.body.split("&")
+    response_hash = {}
+    pairs.each do |pair|
+      key, value = pair.split("=")
+      response_hash[key] = value
+    end
+
+    token = response_hash["access_token"]
+    oauth_response = Faraday.get("https://api.github.com/user?access_token=#{token}")
+
+    auth = JSON.parse(oauth_response.body)
+    # user          = User.find_or_create_by(id: auth["id"])
+    user          = User.find(session[:user_id])
+    user.token    = "token #{token}"
+    # user.password = "password"
+    user.save!
+    session[:user_id] = user.id
+    redirect_to dashboard_path
+  end
+
   def create
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])

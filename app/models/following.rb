@@ -1,5 +1,4 @@
 class Following
-
   attr_reader :login,
               :url
 
@@ -13,3 +12,4 @@ class Following
   end
 
 end
+
