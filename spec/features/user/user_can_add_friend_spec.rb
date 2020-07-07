@@ -40,4 +40,20 @@ describe 'User' do
     expect(page).to have_content('Friend added!')
     expect(@user.friends.count).to eq 1 
   end
+
+  it 'can only add friend once' do 
+
+    within ".github_following" do
+      click_on('Add as Friend')
+    end
+    
+    expect(page).to have_content('Friend added!')
+    expect(@user.friends.count).to eq 1 
+
+    within ".github_following" do
+      click_on('Add as Friend')
+    end
+
+    expect(page).to have_content('Unable to add friend :(')
+  end
 end
