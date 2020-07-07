@@ -57,24 +57,6 @@ ActiveRecord::Schema.define(version: 2020_07_07_010950) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_followers", force: :cascade do |t|
-    t.bigint "users_id"
-    t.integer "following_id"
-    t.integer "followee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_user_followers_on_users_id"
-  end
-
-  create_table "user_followings", force: :cascade do |t|
-    t.bigint "users_id"
-    t.integer "following_id"
-    t.integer "followee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_user_followings_on_users_id"
-  end
-
   create_table "user_videos", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "video_id"
@@ -108,8 +90,6 @@ ActiveRecord::Schema.define(version: 2020_07_07_010950) do
   end
 
   add_foreign_key "friendships", "users"
-  add_foreign_key "user_followers", "users", column: "users_id"
-  add_foreign_key "user_followings", "users", column: "users_id"
   add_foreign_key "user_videos", "users"
   add_foreign_key "user_videos", "videos"
 end
