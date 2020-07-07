@@ -27,11 +27,16 @@
       <% @followers.each do |follower| %>
         <section id="follower">
           <ul>
+          <% if follower.exists_in_the_system? %>
+            <li><a href= "<%= follower.url %>"> <%= follower.login %></a> <%= link_to 'Add as Friend', login_path %></li>
+          <% else %>
             <li><a href= "<%= follower.url %>"> <%= follower.login %></a></li>
+          <% end %>
           </ul>
         </section>
       <% end  %>
     </section>
+    
     
 
     <section class="github_following">

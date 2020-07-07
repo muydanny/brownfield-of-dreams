@@ -8,7 +8,7 @@ class Follower
   end
 
   def exists_in_the_system?
-    User.where(username: @login)
+    User.find_by(login: @login)
   end
 
 end

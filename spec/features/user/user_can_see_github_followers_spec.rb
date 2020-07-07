@@ -18,6 +18,6 @@ describe 'Github followers' do
       expect(page).to have_content("5 Followers")
     end
 
-    #test that they are links
+    # test that they are links
   end
 end

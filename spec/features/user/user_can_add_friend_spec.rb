@@ -23,11 +23,12 @@ describe 'User' do
     expect(page).to have_content(@user.email)
     expect(page).to have_content(@user.first_name)
     expect(page).to have_content(@user.last_name)
-    save_and_open_page
-
+    
     within ".github_following" do
       expect(page).to have_content("5 Following")
-      click_on 'Add as Friend'
+      expect(page).to have_content('Add as Friend', count: 1)
     end
+
+    click_on 'Add as Friend'
   end
 end
