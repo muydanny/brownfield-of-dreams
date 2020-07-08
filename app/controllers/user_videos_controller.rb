@@ -6,10 +6,13 @@ class UserVideosController < ApplicationController
     if current_user.user_videos.find_by(video_id: user_video.video_id)
       flash[:error] = 'Already in your bookmarks'
     elsif user_video.save
+      @video = Video.find(params[:video_id])
+      @video.bookmark
+      # binding.pry
       flash[:success] = 'Bookmark added to your dashboard!'
     end
-
-    redirect_back(fallback_location: root_path)
+    redirect_to "/dashboard"
+    # redirect_back(fallback_location: root_path)
   end
 
   private

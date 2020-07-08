@@ -9,7 +9,6 @@ describe 'A registered user' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit tutorial_path(tutorial)
-
     expect {
       click_on 'Bookmark'
     }.to change { UserVideo.count }.by(1)
@@ -23,12 +22,27 @@ describe 'A registered user' do
     user = create(:user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
     visit tutorial_path(tutorial)
 
     click_on 'Bookmark'
     expect(page).to have_content("Bookmark added to your dashboard")
     click_on 'Bookmark'
     expect(page).to have_content("Already in your bookmarks")
+  end
+
+  it "bookmarked videos show up on user dashboard" do
+    tutorial= create(:tutorial, title: "How to Tie Your Shoes")
+    video = create(:video, title: "The Bunny Ears Technique", tutorial: tutorial)
+    user = User.create!(email: 'user@example.com', first_name: 'User', last_name: 'Regular', password:  "password")
+    visit "/"
+    click_on "Sign In"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Log In"
+    visit tutorial_path(tutorial)
+    click_on 'Bookmark'
+    expect(current_path).to eq("/dashboard")
+
+    expect(page).to have_content(tutorial.title)
   end
 end

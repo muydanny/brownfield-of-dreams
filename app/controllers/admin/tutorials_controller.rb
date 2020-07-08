@@ -3,19 +3,19 @@ class Admin::TutorialsController < Admin::BaseController
     @tutorial = Tutorial.find(params[:id])
   end
 
-  def create 
+  def create
     tutorial = Tutorial.create(new_tutorial_params)
     if tutorial.save
       create_videos(tutorial)
       # YoutubeService.new.playlist_video_params(tutorial)
       # YoutubeService.new.create_videos(tutorial)
       redirect_to admin_dashboard_path
-      flash[:notice] = "Successfully created tutorial. #{view_context.link_to("View it here.", tutorial_path(tutorial.id))}"
+      flash[:notice] = "Successfully created tutorial. #{view_context.link_to('View it here.', tutorial_path(tutorial.id))}"
     end
   end
-  
+
   def new
-    @tutorial = Tutorial.new 
+    @tutorial = Tutorial.new
   end
 
   def update
