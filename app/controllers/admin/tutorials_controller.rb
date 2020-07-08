@@ -20,15 +20,16 @@ class Admin::TutorialsController < Admin::BaseController
 
   def update
     tutorial = Tutorial.find(params[:id])
-    flash[:success] = "#{tutorial.title} tagged!" if tutorial.update(tutorial_params)
+    flash[:success] = "#{tutorial.title} updated!" if tutorial.update(tutorial_params)
     redirect_to edit_admin_tutorial_path(tutorial)
   end
 
   def destroy
     tutorial = Tutorial.find(params[:id])
-    flash[:success] = "#{tutorial.title} tagged!" if tutorial.destroy
+    flash[:success] = "#{tutorial.title} deleted!" if tutorial.destroy
     redirect_to admin_dashboard_path
   end
+
 
   private
 

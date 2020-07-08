@@ -12,11 +12,6 @@ Rails.application.routes.draw do
 
   resources :friendships, only: [:create]
 
-  # 1. create a friends controller
-  # 2. have a create action 
-  # 3. that action, takes the current user id and the id of the user that was clicked
-  #     and creates a friendship record 
-  # user has_many friendships 
 
   namespace :admin do
     get "/dashboard", to: "dashboard#show"

@@ -12,3 +12,5 @@ class Follower
   end
 
 end
+
+# TODO follower and following can be GithubUser for future refactor
