@@ -17,9 +17,9 @@ describe 'Visitor' do
 
       within(first('.tutorials')) do
         expect(page).to have_css('.tutorial')
-        expect(page).to have_css('.tutorial-description')
-        expect(page).to have_content(tutorial1.title)
-        expect(page).to have_content(tutorial1.description)
+        expect(page).to_not have_css('.tutorial-description')
+        expect(page).to_not have_content(tutorial1.title)
+        expect(page).to_not have_content(tutorial1.description)
       end
     end
   end
