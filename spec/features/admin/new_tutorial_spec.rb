@@ -56,7 +56,7 @@ feature "An admin can add a tutorial by importing from Youtube" do
     fill_in 'Title', with: 'Tutorial'
     fill_in 'Description', with: 'New Tutorial'
     fill_in 'Thumbnail', with: 'https://www.youtube.com/watch?v=-qv7k2_lc0M&list=PL83DDC2327BEB616D'
-
+  
     click_link "Import Youtube Playlist"
     fill_in "tutorial_playlist_id",   with: "PL83DDC2327BEB616D" 
     click_on 'Save' 
@@ -66,19 +66,30 @@ feature "An admin can add a tutorial by importing from Youtube" do
 
     expect(tutorial.videos.count).to be > 200
   end
+  it "Can save a video without playlist id and goes to tutorial id page" do 
+    admin = create(:admin)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit "/admin/tutorials/new"
+
+    fill_in 'Title', with: 'Tutorial'
+    fill_in 'Description', with: 'New Tutorial'
+    fill_in 'Thumbnail', with: 'https://www.youtube.com/watch?v=-qv7k2_lc0M&list=PL83DDC2327BEB616D'
+  
+    
+    click_on 'Save' 
+
+    tutorial = Tutorial.last
+    expect(current_path).to eq("/tutorials/#{tutorial.id}")
+
+    expect(page).to have_content('Successfully created tutorial.')
+  end
 end
 
-# As an admin
 # When I visit '/admin/tutorials/new'
-# Then I should see a link for 'Import YouTube Playlist'
-# When I click 'Import YouTube Playlist'
-# Then I should see a form
-
-# And when I fill in 'Playlist ID' with a valid ID
-# Then I should be on '/admin/dashboard'
-# And I should see a flash message that says 'Successfully created tutorial. View it here.'
-# And 'View it here' should be a link to '/tutorials/:id'
-# And when I click on 'View it here'
-# Then I should be on '/tutorials/:id'
-# And I should see all videos from the YouTube playlist
-# And the order should be the same as it was on YouTube
+# And I fill in 'title' with a meaningful name
+# And I fill in 'description' with a some content
+# And I fill in 'thumbnail' with a valid YouTube thumbnail
+# And I click on 'Save'
+# Then I should be on '/tutorials/{NEW_TUTORIAL_ID}'
+# And I should see a flash message that says "Successfully created tutorial."

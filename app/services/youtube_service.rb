@@ -1,23 +1,30 @@
 class YoutubeService
+
   def create_videos(tutorial, videos = [], nextPageToken = nil)
-    url = "/youtube/v3/playlistItems?playlistId=#{tutorial.playlist_id}"
-    params = { part: 'snippet', maxResults: 50 }
+    # if playlist_id = ""
+    #   require 'pry'; binding.pry
+    # else
+      url = "/youtube/v3/playlistItems?playlistId=#{tutorial.playlist_id}"
+      params = { part: 'snippet', maxResults: 50 }
 
-    params[:pageToken] = nextPageToken if nextPageToken
+      params[:pageToken] = nextPageToken if nextPageToken
 
-    res = get_json(url, params)
-    videos << res[:items]
+      res = get_json(url, params)
+      videos << res[:items]
 
-    if res[:nextPageToken]
-      # using recursion
-      create_videos(tutorial, videos, res[:nextPageToken])
+      if res[:nextPageToken]
+        # using recursion
+        create_videos(tutorial, videos, res[:nextPageToken])
+      end
+      ## return an array with   item objects
+      videos.flatten
     end
-    ## return an array with   item objects
-    videos.flatten
   end
 
   # could go into a youtube poro
   def playlist_video_params(tutorial)
+    if playlist_id = "" 
+    end
     videos_params = []
     create_videos(tutorial).each do |video|
       video_params = {}
